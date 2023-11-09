@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cube Timer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <center>
+        <br /><br />
+        <marquee><h1>GOOD LUCK MY NIGGA!!!</h1></marquee>
+        <button id="login"><a href="/login.html">LOGIN</a></button>
+        <button onclick="randomShuffle()">Shuffle</button>
+        <p style="font-size: x-large" id="random-notations"></p>
+        <div id="out"><div id="display" style="font-size: 100px">00:00:00</div></div>
+        <!-- <button onclick="resetStopwatch()">Reset</button> -->
+        <button id="add">+2sec</button>
+        <button id="dnf">DNF: <span id="dnfC">0</span></button>
+        <button id="clr">clear</button><br /><br /><br /><br />
+        <form class="form" action="">
+          <table align="left">
+              <caption><strong>PERVIOUS RECORD:</strong></caption>
+              <tr>
+                  <td><label>Best Time:</label></td>
+                  <td></td>
+              </tr>
+              <tr>
+                  <td><label>Average of 5:</label></td>
+                  <td><input type="number" id="AVG5" size="4"><br></td>
+              </tr>
+              <tr>
+                  <td><label>Average of 10:</label></td>
+                  <td><input type="number" id="AVG10" size="4"><br></td>
+              </tr>
+          </table>
+      </form>
+      <form class="form1" action="">
+          <table align="left" id="newRecord">
+              <caption><strong>NEW RECORD:</strong></caption>
+              <tr>
+                  <td><label>Best Time:</label></td>
+                  <td><span id="bval"></span></td>
+              </tr>
+              <tr>
+                  <td><label>Worst Time:</label></td>
+                  <td><span id="wval"></span></td>
+              </tr>
+              <tr>
+                  <td><label>Average of 5:</label></td>
+                  <td><span id="avg5"></span><br></td>
+              </tr>
+              <tr>
+                  <td><label>Average of 10:</label></td>
+                  <td><span id="avg10"></span><br></td>
+              </tr>
+          </table>
+      </form>
+        <span
+          id="startButton"
+          style="font-size: xx-large; background-color: crimson; padding: 10px align" 
+          >Start</span>
+      </center>
+    <script src="script.js"></script>
+</body>
+</html>
