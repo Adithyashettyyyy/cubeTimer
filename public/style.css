@@ -1,0 +1,113 @@
+h1 {
+    color: chartreuse;
+  }
+  body{
+    background-image: url(12.jpg);
+    background-position: center;
+    background-repeat: repeat;
+  }
+  div {
+    color: rgb(245, 244, 244);
+    font-weight: bolder;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0);
+    margin:2px;
+    border-radius: 12px;
+    display: inline;
+  }
+  button{
+            color: #fff;
+            padding: 8px 22px;
+            border-radius: 6px;
+            font-size: xx-large;
+            background: #005b41;
+            transition:all 0.3s ease-in-out;
+        }
+        button:active{
+            transform: scale(0.96);
+        }
+        button:hover{
+            background-color:#008170;
+        }
+  .bestnworst {
+    position: fixed;
+    right: 20%;
+    bottom: 20%;
+  }
+  #best,
+  #worst {
+    color: tomato;
+    font-size: x-large;
+  }
+  table{
+    padding: 10px;
+  }
+  #newRecord{
+    width: 250px;
+  }
+  #pervious{
+    width: 250px;
+  }
+  caption{
+    padding: 10px;
+    padding-bottom: 0;
+  }
+  td{
+    padding: 5px;
+  }
+  .form{
+        position:fixed;
+        left:50px;
+        bottom: 50px;
+        color: #008170;
+        background-color:#232d3f;
+        border-radius: 12px;
+    }
+    .form1{
+        position:fixed;
+        right:50px;
+        bottom: 50px;
+        color: #3BBA9C;
+        background-color:#2E3047;
+        border-radius: 12px;
+        
+    }
+    input{
+        border-radius: 12px;
+        margin:auto ;
+        size: 3px;
+    }
+    #out{
+      display: block;
+      background-color: rgba(0, 0, 0, 0);
+      padding:80px;
+    }
+    #out > #display{
+      background-color: #232d3f;
+      opacity: 100%;
+      color:#fff;
+    }
+    #startButton{
+        background-color:#008170;  
+        padding: 10px;
+        border-radius: 10px;
+        /* filter:drop-shadow(0 0 20px white); */
+
+    }
+    #random-notations{
+        color:crimson;
+    }
+   
+    a {
+      text-decoration: none;
+      color: black;
+    }
+    #login{
+      position: fixed;
+      left: 10px;
+      top: 10px;
+      background-color:#fff;
+    }
+    #random-notations{
+      margin-bottom: -20px;
+    }
