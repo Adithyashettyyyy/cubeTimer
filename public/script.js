@@ -250,6 +250,37 @@ function addTimeAndCalculateAverage() {
   }
 }
 
-// Call the function to calculate the average when needed (e.g., after recording a new time)
-// Example: You can call this function when a button is clicked or when the timer stops.
-// You can also add this function to an event listener.
+// ... Your existing code ...
+
+document.addEventListener("DOMContentLoaded", async function () {
+  // Check if the user is logged in
+  const response = await fetch("/checkLogin");
+  const data = await response.json();
+
+  const userHeaderElement = document.getElementById("userHeader");
+
+  if (data.loggedIn) {
+    // If logged in, update the header with the user's username
+    userHeaderElement.innerHTML = `<p class="user">Welcome: ${data.username} <button id="logout">Logout</button></p>`;
+    
+    // Add an event listener for the logout button
+    const logoutButton = document.getElementById("logout");
+    logoutButton.addEventListener("click", async function () {
+      // Send a request to the server to logout
+      const logoutResponse = await fetch("/logout");
+      const logoutData = await logoutResponse.json();
+
+      if (logoutData.loggedOut) {
+        // Redirect to the login page or update the UI as needed
+        window.location.href = "login.html";
+      } else {
+        alert("Error during logout");
+      }
+    });
+  } else {
+    // If not logged in, add the login button
+    userHeaderElement.innerHTML = `<button id="login"><a href="login.html">LOGIN</a></button>`;
+  }
+});
+
+
