@@ -200,12 +200,7 @@ var stopwatch;
         }
       });
 
-      // if(event.keyCode === 13){
-      //     if(isRunning){
-      //         startStopwatch();
-      //         var m = document.getElementById('display').value;
-      //         document.getElementById('best').innerHTML = m;
-      //     }
+      
       // }
 
       // Define an array to store the times
