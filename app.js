@@ -19,6 +19,9 @@ const userSchema = new mongoose.Schema({
   username: String,
   email: String,
   password: String,
+  cur_best_time: String,
+  avg5: String,
+  avg10: String,
 });
 
 const UserModel = mongoose.model('User', userSchema);
@@ -49,7 +52,6 @@ app.post('/signup', async (req, res) => {
   try {
     await newUser.save();
     res.status(201).json({ message: 'Sign-up successful!' });
-    res.redirect("/login.html");
   } catch (error) {
     console.error('Error saving user:', error);
     res.status(500).json({ message: 'Internal Server Error' });
@@ -70,7 +72,14 @@ app.post('/login', async (req, res) => {
 
     if (user && bcrypt.compareSync(password, user.password)) {
       req.session.user = { username: user.username, email: user.email };
-      res.status(200).json({ message: 'Login successful' });
+
+      // Send user data including cur_best_time, avg5, and avg10 to the frontend
+      res.status(200).json({
+        message: 'Login successful',
+        cur_best_time: user.cur_best_time || '',
+        avg5: user.avg5 || '',
+        avg10: user.avg10 || '',
+      });
     } else {
       res.status(401).json({ message: 'Invalid username or password' });
     }
@@ -89,10 +98,6 @@ app.get('/checkLogin', (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
-
 app.get('/logout', (req, res) => {
   // Clear the session
   req.session.destroy((err) => {
@@ -103,4 +108,24 @@ app.get('/logout', (req, res) => {
       res.json({ loggedOut: true });
     }
   });
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
+app.post('/updateUserData', async (req, res) => {
+  const { cur_best_time, avg5, avg10 } = req.body;
+
+  try {
+    await UserModel.updateOne(
+      { username: req.session.user.username },
+      { cur_best_time, avg5, avg10 }
+    );
+
+    res.status(200).json({ message: 'User data updated successfully' });
+  } catch (error) {
+    console.error('Error updating user data:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 });
