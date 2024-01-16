@@ -129,3 +129,22 @@ app.post('/updateUserData', async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
+app.get('/getUserData', async (req, res) => {
+  try {
+    const user = await UserModel.findOne({ username: req.session.user.username });
+
+    if (user) {
+      res.status(200).json({
+        cur_best_time: user.cur_best_time || '',
+        avg5: user.avg5 || '',
+        avg10: user.avg10 || '',
+      });
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
