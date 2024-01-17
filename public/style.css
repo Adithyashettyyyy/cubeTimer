@@ -20,7 +20,7 @@ div {
 #logout {
   position: absolute;
   top: 20px;
-  
+
   left: 20px;
   z-index: 1000;
 }
@@ -50,6 +50,7 @@ button:hover {
 }
 table {
   padding: 10px;
+  width: 250px;
 }
 #newRecord {
   width: 250px;
@@ -103,9 +104,11 @@ input {
 }
 #random-notations {
   color: crimson;
+  /* background-color:#232d3f; */
+  width: 700px;
 }
 
-.user{
+.user {
   color: #fff;
   font-size: 25px;
   background-color: #005b41;
@@ -132,4 +135,55 @@ a {
 }
 #random-notations {
   margin-bottom: -20px;
+}
+#rule {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.shh {
+  padding-left: 680px;
+}
+
+
+
+.popup {
+  /* background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB); */
+  background-color: #ffffff;
+  /* width: 450px; */
+  border: solid black 2px;
+  padding: 30px 40px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  border-radius: 8px;
+  font-family: "Poppins", sans-serif;
+  display: none;
+}
+.popup button {
+  display: block;
+  margin: 0 0 20px auto;
+  /* background-color: transparent; */
+  font-size: 30px;
+  color: #c5c5c5;
+  /* border: none; */
+  outline: none;
+  cursor: pointer;
+  border-radius: 25px;
+}
+.popup p {
+  font-size: 14px;
+  text-align: justify;
+  margin: 20px 0;
+}
+#close {
+  display: block;
+  width: 100px;
+  position: relative;
+  margin: auto;
+  /* text-align: center; */
+  color: #ffffff;
+  /* text-decoration: none; */
+  padding: 5px 0;
 }

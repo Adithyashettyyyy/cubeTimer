@@ -33,7 +33,9 @@ function plus2() {
   let seconds2 = parseInt(seconds) + 2;
   let displaySeconds = seconds2.toString().padStart(2, "0");
 
-  document.getElementById("display").textContent = `${minutes}:${displaySeconds}:${milliseconds}`;
+  document.getElementById(
+    "display"
+  ).textContent = `${minutes}:${displaySeconds}:${milliseconds}`;
 }
 
 let dnfC = 0;
@@ -42,6 +44,17 @@ function dnf() {
   resetStopwatch();
   dnfC++;
   document.getElementById("dnfC").textContent = dnfC;
+}
+
+function randomShuffle() {
+  const cubeNotations = "R U L D F B R' U' L' D' F' B' R2 U2 L2 D2 F2 B2";
+  const notationsArray = cubeNotations.split(" ");
+  let randomNotations = "";
+  for (let i = 0; i < 20; i++) {
+    const randomIndex = Math.floor(Math.random() * notationsArray.length);
+    randomNotations += notationsArray[randomIndex] + " ";
+  }
+  document.getElementById("random-notations").textContent = randomNotations;
 }
 
 function clr() {
@@ -74,7 +87,9 @@ function updateTime() {
   var displaySeconds = seconds.toString().padStart(2, "0");
   var displayMilliseconds = milliseconds.toString().padStart(2, "0");
 
-  document.getElementById("display").textContent = `${displayMinutes}:${displaySeconds}:${displayMilliseconds}`;
+  document.getElementById(
+    "display"
+  ).textContent = `${displayMinutes}:${displaySeconds}:${displayMilliseconds}`;
 }
 
 // Add the getSeparatedTime function
@@ -158,7 +173,7 @@ document.addEventListener("keydown", async (e) => {
         try {
           await updateUserData(curBestTime.innerHTML);
         } catch (error) {
-          console.error('Error updating user data:', error);
+          console.error("Error updating user data:", error);
         }
 
         addTimeAndCalculateAverage();
@@ -169,17 +184,29 @@ document.addEventListener("keydown", async (e) => {
 });
 
 async function updateUserData(curBestTime) {
-  await fetch("/updateUserData", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      cur_best_time: curBestTime,
-      avg5: document.getElementById("avg5").textContent,
-      avg10: document.getElementById("avg10").textContent,
-    }),
-  });
+  try {
+    const response = await fetch("/updateUserData", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cur_best_time: curBestTime,
+        avg5: document.getElementById("avg5").textContent,
+        avg10: document.getElementById("avg10").textContent,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.message === "User data updated successfully") {
+      console.log("User data updated successfully");
+    } else {
+      console.error("Error updating user data:", data.message);
+    }
+  } catch (error) {
+    console.error("Error updating user data:", error);
+  }
 }
 
 const timeArray = [];
@@ -220,26 +247,51 @@ function addTimeAndCalculateAverage() {
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
-  const response = await fetch("/checkLogin");
-  const data = await response.json();
+  try {
+    const response = await fetch("/checkLogin");
+    const data = await response.json();
 
-  const userHeaderElement = document.getElementById("userHeader");
+    const userHeaderElement = document.getElementById("userHeader");
 
-  if (data.loggedIn) {
-    userHeaderElement.innerHTML = `<p class="user">Welcome: ${data.username} <button id="logout">Logout</button></p>`;
+    if (data.loggedIn) {
+      // User is logged in, show user-specific content
+      userHeaderElement.innerHTML = `<p class="user">Welcome: ${data.username} <button id="logout">Logout</button></p>`;
 
-    const logoutButton = document.getElementById("logout");
-    logoutButton.addEventListener("click", async function () {
-      const logoutResponse = await fetch("/logout");
-      const logoutData = await logoutResponse.json();
+      // Fetch user data
+      const userDataResponse = await fetch("/getUserData");
+      const userData = await userDataResponse.json();
 
-      if (logoutData.loggedOut) {
-        window.location.href = "login.html";
-      } else {
-        alert("Error during logout");
-      }
-    });
-  } else {
-    userHeaderElement.innerHTML = `<button id="login"><a href="login.html">LOGIN</a></button>`;
+      // Display user data in the HTML
+      document.getElementById("BT").textContent = userData.cur_best_time || "";
+      document.getElementById("AV5").textContent = userData.avg5 || "";
+      document.getElementById("AV10").textContent = userData.avg10 || "";
+
+      const logoutButton = document.getElementById("logout");
+      logoutButton.addEventListener("click", async function () {
+        const logoutResponse = await fetch("/logout");
+        const logoutData = await logoutResponse.json();
+      
+
+        if (logoutData.loggedOut) {
+          window.location.href = "login.html";
+          
+        } else {
+          alert("Error during logout");
+        }
+      });
+    } else {
+      // User is not logged in, show the popup after a delay
+      setTimeout(function () {
+        document.querySelector(".popup").style.display = "block";
+      }, 1000);
+
+      // Show login button
+      userHeaderElement.innerHTML = `<button id="login"><a href="login.html">LOGIN</a></button>`;
+
+    }
+  } catch (error) {
+    console.error("Error checking login status:", error);
   }
 });
+
+

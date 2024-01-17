@@ -89,7 +89,7 @@
 
       if (response.ok) {
         alert('Sign-up successful!');
-        window.location.href = "/login.html";
+        window.location.href = "/index.html";
       } else {
         const data = await response.json();
         alert('Error during sign-up: ' + data.message);
